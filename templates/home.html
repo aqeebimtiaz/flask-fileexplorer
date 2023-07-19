@@ -6,143 +6,170 @@
 <div class="container">
     {% for drive in windows_drives %}
 
-        <span>
-            <a class="active hvr-shadow mr-2" href="/files/{{drive}}:">
-                {{drive}}
-            </a>
-        </span>
+    <span>
+        <a class="active hvr-shadow mr-2" href="/files/{{drive}}:">
+            {{drive}}
+        </a>
+    </span>
 
     {% endfor %}
 </div>
 {% endif %}
 
-<div id ="view0_container" class = "container"  {{ default_view_css_1 }} >
-    <div class = "row"><h5></h5></div>
-
-
-<div class = "row">
-
-{% for k,dir_i in dir_dict.items() %}
-
-<div class="col-md-2 col-sm-4 col-6 mt-2">
-
-    <!-- <a data-toggle="tooltip" data-placement="left" title="Send to Phone" id = "qrphone" href = "/qr/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src = "/static/phone-download.png" style = "width:15px;height:15px;"></a> -->
-
-    <div class="thumbnail hvr-shadow">
-        
-
-        <a href="/files/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src = '/static/{{dir_i.image}}' class='img-thumbnail' style="border:0px;"/><p style="color:black; text-align:center; text-decoration:none;">
-                <p style="color:black;" data-toggle="tooltip" data-placement="right" title="{{dir_i.f_complete}}">
-{{ dir_i.f }}
-</p>
-        </p></a>                
-
-        
-    </div>
+<div id="view0_container" class="container" {{ default_view_css_1 }}>
+    <div class="row">
+        <h5></h5>
     </div>
 
-{% endfor %}
+    <div class="row">
 
-</div>
+        {% for k,dir_i in dir_dict.items() %}
+
+        <div class="col-md-2 col-sm-4 col-6 mt-2">
+
+            <!-- <a data-toggle="tooltip" data-placement="left" title="Send to Phone" id = "qrphone" href = "/qr/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src = "/static/phone-download.png" style = "width:15px;height:15px;"></a> -->
+
+            <div class="thumbnail hvr-shadow">
 
 
+                <a href="/files/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src='/static/{{dir_i.image}}'
+                        class='img-thumbnail' style="border:0px;" />
+                    <p style="color:black; text-align:center; text-decoration:none;">
+                        <p style="color:black;" data-toggle="tooltip" data-placement="right"
+                            title="{{dir_i.f_complete}}">
+                            {{ dir_i.f }}
+                        </p>
+                    </p>
+                </a>
 
-<div class = "row mt-4"><h5></h5></div> <hr>
 
-<div class = "row">
-
-    {% for k,dir_i in file_dict.items() %}
-    
-    <div class="col-md-2 col-sm-4 col-6 mt-2">
-    
-        <a data-toggle="tooltip" data-placement="left" title="Send to Phone" id = "qrphone" href = "/qr/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src = "/static/phone-download.png" style = "width:15px;height:15px;"></a>
-    
-        <div class="thumbnail hvr-shadow">
-            
-    
-            <a href="/download/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src = '/static/{{dir_i.image}}' class='img-thumbnail' style="border:0px;"/><p style="color:black; text-align:center; text-decoration:none;">
-                    <p style="color:black;" data-toggle="tooltip" data-placement="right" title="{{dir_i.f_complete}}">
-    {{ dir_i.f }}
-    </p>
-            </p></a>                
-    
-            
+            </div>
         </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="row mt-4">
+        <h5></h5>
+    </div>
+    
+    <hr>
+
+    <div class="row">
+
+        {% for k,dir_i in file_dict.items() %}
+
+        <div class="col-md-2 col-sm-4 col-6 mt-2">
+
+            <a data-toggle="tooltip" data-placement="left" title="Send to Phone" id="qrphone"
+                href="/qr/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src="/static/phone-download.png"
+                    style="width:15px;height:15px;"></a>
+
+            <div class="thumbnail hvr-shadow">
+
+                <a href="/download/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src='/static/{{dir_i.image}}'
+                        class='img-thumbnail' style="border:0px;" />
+                    <p style="color:black; text-align:center; text-decoration:none;">
+                        <p style="color:black;" data-toggle="tooltip" data-placement="right"
+                            title="{{dir_i.f_complete}}">
+                            {{ dir_i.f }}
+                        </p>
+                    </p>
+                </a>
+
+            </div>
         </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<div id="view1_container" class="container" {{ default_view_css_2 }}>
+    <div class="row mt-4">
+        <div class="col-6 mb-2" style=" text-align:center;"><b>Name</b>
+            <hr>
+        </div>
+        <div class="col-2" style=" text-align:center;"><b>Created</b>
+            <hr>
+        </div>
+        <div class="col-2" style=" text-align:center;"><b>Modified</b>
+            <hr>
+        </div>
+        <div class="col-2" style=" text-align:center;"><b>Size</b>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+
+        {% for k,dir_i in dir_dict.items() %}
+
+        <div class="col-6" style="margin-bottom:-10px">
+
+            <a href="/files/{{dir_i.currentDir}}/{{dir_i.f_url}}">
+
+                <img src='/static/{{dir_i.image}}' style="position:absolute; height:25px; width:25px; border:0px;" />
+
+                <p class="file-name" style="margin-left:35px; color:black; text-align:left; text-decoration:none;">
+                    {{dir_i.f}}</p>
+            </a>
+
+        </div>
+        <div class="col-2" style="margin-bottom:-10px">
+            <p>{{dir_i.dtc}}</p>
+        </div>
+        <div class="col-2" style="margin-bottom:-10px">
+            <p>{{dir_i.dtm}}</p>
+        </div>
+        <div class="col-2" style="margin-bottom:-10px; ">
+            <p>{{dir_i.size}}</p>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    <div class="row mt-4">
+        <h5></h5>
+    </div>
     
-    {% endfor %}
+    <hr>
     
+    <div class="row mt-4"></div>
+
+    <div class="row">
+
+        {% for k,dir_i in file_dict.items() %}
+
+        <div class="col-6" style="margin-bottom:-10px">
+
+            <a href="/download/{{dir_i.currentDir}}/{{dir_i.f_url}}">
+
+                <img src='/static/{{dir_i.image}}' style="position:absolute; height:25px; width:25px; border:0px;" />
+
+                <p class="file-name" style="margin-left:35px; color:black; text-align:left; text-decoration:none;">
+                    {{dir_i.f}}</p>
+            </a>
+
+        </div>
+        <div class="col-2" style="margin-bottom:-10px">
+            <p>{{dir_i.dtc}}</p>
+        </div>
+        <div class="col-2" style="margin-bottom:-10px">
+            <p>{{dir_i.dtm}}</p>
+        </div>
+        <div class="col-2" style="margin-bottom:-10px;">
+            <p>{{dir_i.size}}</p>
+        </div>
+
+        {% endfor %}
     </div>
 
-
-
-</div> 
-
-
-
-
-<div id ="view1_container" class = "container" {{ default_view_css_2 }} >
-    <div class = "row mt-4">
-        <div class="col-6 mb-2" style=" text-align:center;" ><b>Name</b><hr></div>
-        <div class="col-2" style=" text-align:center;" ><b>Created</b><hr></div>
-        <div class="col-2" style=" text-align:center;"><b>Modified</b><hr></div>
-        <div class="col-2" style=" text-align:center;"><b>Size</b><hr></div>
 </div>
-
-<div class = "row">
-
-
-    {% for k,dir_i in dir_dict.items() %}
-
-    <div class="col-6" style="margin-bottom:-10px">
-
-        <a href="/files/{{dir_i.currentDir}}/{{dir_i.f_url}}">
-        
-        <img src = '/static/{{dir_i.image}}'  style="position:absolute; height:25px; width:25px; border:0px;"/>
-
-        <p class="file-name" style="margin-left:35px; color:black; text-align:left; text-decoration:none;">{{dir_i.f}}</p>
-        </a>
-        
-    </div>
-    <div class="col-2" style="margin-bottom:-10px"><p>{{dir_i.dtc}}</p></div>
-    <div class="col-2" style="margin-bottom:-10px"><p>{{dir_i.dtm}}</p></div>
-    <div class="col-2" style="margin-bottom:-10px; "><p>{{dir_i.size}}</p></div>
-
-    {% endfor %}
-</div>
-
-<div class = "row mt-4"><h5></h5></div> <hr><div class = "row mt-4"></div>
-
-<div class = "row">
-
-
-    {% for k,dir_i in file_dict.items() %}
-
-    <div class="col-6" style="margin-bottom:-10px">
-
-        <a href="/download/{{dir_i.currentDir}}/{{dir_i.f_url}}">
-        
-        <img src = '/static/{{dir_i.image}}'  style="position:absolute; height:25px; width:25px; border:0px;"/>
-
-        <p class="file-name" style="margin-left:35px; color:black; text-align:left; text-decoration:none;">
-{{dir_i.f}}</p>
-        </a>
-        
-    </div>
-    <div class="col-2" style="margin-bottom:-10px"><p>{{dir_i.dtc}}</p></div>
-    <div class="col-2" style="margin-bottom:-10px"><p>{{dir_i.dtm}}</p></div>
-    <div class="col-2" style="margin-bottom:-10px;"><p>{{dir_i.size}}</p></div>
-
-    {% endfor %}
-</div>
-
-</div>
-
-
-
 
 <!-- INLINE CODE EXIT -->
-
 
 <!-- 
 		{% autoescape false %}
@@ -150,8 +177,7 @@
 		
 		{% endautoescape %} -->
 
-
-    <!-- {% for f in dirList %}
+<!-- {% for f in dirList %}
         <div class="col-md-2 col-sm-4 col-6 mt-2">
                 <div class="thumbnail hvr-shadow">
                     <a href="/files/{{currentDir}}/{{ f }}"><img src = '/static/folder5.png' class='img-thumbnail' style="border:0px;"/><p style="color:black; text-align:center; text-decoration:none;">{{f[:15]}}</p></a>
@@ -160,14 +186,8 @@
     
     {% endfor %} -->
 
-
-
-
-    <!-- </div> -->
 <!-- </div> -->
-
-
-
+<!-- </div> -->
 
 
 <!-- 
@@ -198,16 +218,9 @@
             
             </div>
         </div>
-    
-
-        
-
 
         {% endfor %}
     </div>
 </div> -->
 
-        
 {% endblock content %}
-
-

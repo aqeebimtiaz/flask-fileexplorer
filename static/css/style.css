@@ -20,3 +20,7 @@ text-align: center;
     background-color: white;
     z-index: 99;
 }
+
+.file-name {
+    text-overflow: ellipsis; 
+}

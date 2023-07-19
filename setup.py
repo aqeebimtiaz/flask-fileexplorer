@@ -19,7 +19,7 @@ hostname = socket.gethostname()
 IPAddr = socket.gethostbyname(hostname)
 print("Your Computer Name is: " + hostname)
 print("Your Computer IP Address is: " + IPAddr)
-maxNameLength = 15
+maxNameLength = 50
 
 
 app = Flask(__name__)
@@ -52,6 +52,8 @@ tp_dict = {'image': [['png', "jpg", 'svg'], 'image-icon.png'],
            }
 supported_formats = video_types = ['mp4', "webm", "opgg",'mp3', 'pdf', 'txt', 'html', 'css', 'svg', 'js', 'png', 'jpg']
 
+windows_drives = []
+
 if 'win32' in sys.platform or 'win64' in sys.platform:
     # import win32api
     osWindows = True
@@ -61,6 +63,19 @@ if 'win32' in sys.platform or 'win64' in sys.platform:
     # drives = drives.split('\000')[:-1]
     # drives.extend(favList)
     # favList=drives
+
+    import string
+    from ctypes import windll
+
+    def get_drives():
+        drives = []
+        bitmask = windll.kernel32.GetLogicalDrives()
+        for letter in string.ascii_uppercase :
+            if bitmask & 1:
+                drives.append(letter)
+            bitmask >>= 1
+
+        return drives
 
 if(len(favList) > 3):
     favList = favList[0:3]
@@ -90,6 +105,10 @@ def make_zipfile(output_filename, source_dir):
                         os.path.relpath(root, relroot), file)
                     zip.write(filename, arcname)
 
+@app.route('/poweroff/')
+def poweroff(var=""):
+    os.system("shutdown /s /t 2")
+    return logoutMethod()
 
 @app.route('/login/')
 @app.route('/login/<path:var>')
@@ -270,7 +289,15 @@ def filePage(var=""):
     if('login' not in session):
         return redirect('/login/files/'+var)
     # print(var)
-    if(changeDirectory(var) == False):
+
+    windows_drives = []
+    skip_404 = False
+    if osWindows and var == 'this_pc':
+        windows_drives = get_drives()
+        print(windows_drives)
+        skip_404 = True
+
+    if(changeDirectory(var) == False and not skip_404):
         # Invalid Directory
         print("Directory Doesn't Exist")
         return render_template('404.html', errorCode=300, errorText='Invalid Directory Path', favList=favList)
@@ -298,7 +325,10 @@ def filePage(var=""):
         for c in range(0, len(cList)):
             var_path += ' / <a style = "color:black;"href = "/files/' + \
                 '/'.join(cList[0:c+1])+'">'+unquote(cList[c])+'</a>'
-    return render_template('home.html', currentDir=var, favList=favList, default_view_css_1=default_view_css_1, default_view_css_2=default_view_css_2, view0_button=var1, view1_button=var2, currentDir_path=var_path, dir_dict=dir_dict, file_dict=file_dict)
+    return render_template('home.html', currentDir=var, favList=favList, 
+                           default_view_css_1=default_view_css_1, default_view_css_2=default_view_css_2, 
+                           view0_button=var1, view1_button=var2, currentDir_path=var_path, 
+                           dir_dict=dir_dict, file_dict=file_dict, windows_drives=windows_drives)
 
 
 @app.route('/', methods=['GET'])
@@ -308,7 +338,7 @@ def homePage():
         return redirect('/login/')
     if osWindows:
         if(currentDirectory == ""):
-            return redirect('/files/C:')
+            return redirect('/files/this_pc')
         else:
             # cura = currentDirectory
             cura = '>'.join(currentDirectory.split('\\'))

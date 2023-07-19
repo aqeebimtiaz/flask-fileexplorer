@@ -30,23 +30,24 @@
                   <ul class="navbar-nav ml-auto mt-2 mb-2 ">
 
                     <!-- <button class='btn btn-light mr-1' id = "view0_button" {{view0_button}}><i class="fas fa-th-large"></i></button >
-                    <button class='btn btn-light' id = "view1_button" {{view1_button}}><i class="fas fa-list"></i></button>
-                 -->
+                    <button class='btn btn-light' id = "view1_button" {{view1_button}}><i class="fas fa-list"></i></button> -->
 
-                      {% if favList %}
+                    <!-- {% if favList %}
 
-                      <form id = "uploadForm" class="md-form" action = "/upload/{{currentDir}}" method = "POST"  enctype = "multipart/form-data" style="display:none;">
+                    <form id = "uploadForm" class="md-form" action = "/upload/{{currentDir}}" method = "POST"  enctype = "multipart/form-data" style="display:none;">
 
-                        <input style="color:white;" class ="btn btn-sm "  type="file" name = "files[]" multiple="true" >
-                        <input class="btn btn-sm mr-4" type = "submit" value="Upload"/>
-                    
-                      </form>
+                      <input style="color:white;" class ="btn btn-sm "  type="file" name = "files[]" multiple="true" >
+                      <input class="btn btn-sm mr-4" type = "submit" value="Upload"/>
+                  
+                    </form>
 
-                      <button id = "uploadButton" class="btn btn-sm mr-4 ml-4" style="margin-bottom:6px;margin-top:3px;">Upload</button>
-                
-                      {% endif %}
-                      <button class='btn btn-light mr-1' id = "view0_button" {{view0_button}}><i class="fas fa-th-large"></i></button >
-                        <button class='btn btn-light mr-3' id = "view1_button" {{view1_button}}><i class="fas fa-list"></i></button>
+                    <button id = "uploadButton" class="btn btn-sm mr-4 ml-4" style="margin-bottom:6px;margin-top:3px;">Upload</button>
+              
+                    {% endif %} -->
+                    <li class="nav-item text-sm-center">
+                      <button class='btn btn-light mr-1' id = "view0_button" {{view0_button}}><i class="fas fa-th-large"></i></button>
+                      <button class='btn btn-light mr-1' id = "view1_button" {{view1_button}}><i class="fas fa-list"></i></button>
+                    </li>
                     
 
                                
@@ -55,7 +56,7 @@
                     {% set list1 = f.split('/') %}
         
                     <li class="nav-item">
-                      <a class="nav-link active hvr-shadow mr-2" href="/files/{{f}}">{{list1[list1|length-1]}} <span class="sr-only">(current)</span></a>
+                      <a class="nav-link active hvr-shadow mr-2" href="/files/{{f}}">{{list1[list1|length-1]}} ({{f}}) <span class="sr-only">(current)</span></a>
                     </li>
 
                     {% endfor %}
@@ -64,21 +65,26 @@
 
 
                     {% if favList %}
-                    <li class="nav-item mr-4">
+                    <!-- <li class="nav-item mr-4">
                     <a data-toggle="tooltip" data-placement="right" title="Support Me" class = "ml-3" href="https://www.buymeacoffee.com/rehanahmed" target ="_blank" ><img
                       alt = "Buy Me a Coffee" src="/static/coffee.png" style="margin-top:7px;width:25px; height:25px;"></a>
-                    </li>
+                    </li> -->
 
                     <!-- <li class="nav-item mr-4">
                       <a data-toggle="tooltip" data-placement="right" title="Download Folder" class="nav-link active hvr-shadow" href="/downloadFolder/{{currentDir}}"> <span class="fa fa-download"></span><span class="sr-only">(current)</span></a>
-                  </li> -->
+                    </li> -->
                   
                     <li class="nav-item">
                       <!-- <p style="color:black;" data-toggle="tooltip" data-placement="right" title="Logout" > -->
-                        <a data-toggle="tooltip" data-placement="right" title="Logout" class="nav-link active hvr-shadow" href="/logout/"> <span class="fa fa-sign-out-alt"></span> <span class="sr-only">(current)</span></a>
+                        <a data-toggle="tooltip" data-placement="right" title="Logout" class="nav-link active hvr-shadow d-flex justify-content-center align-items-center" href="/logout/"> <span class="fa fa-sign-out-alt"></span> <span class="sr-only">(current)</span></a>
                       <!-- </p> -->
                       <!-- <a class="nav-link active hvr-shadow" href="/logout/"> <span class="fa fa-sign-out-alt"></span> <span class="sr-only">(current)</span></a> -->
                  
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="tooltip" data-placement="right" title="PowerOff" class="nav-link active hvr-shadow d-flex justify-content-center align-items-center" href="/poweroff/">
+                          <span class="fa fa-power-off"></span> <span class="sr-only">(current)</span>
+                        </a>
                     </li>
 
                  

@@ -4,18 +4,31 @@
 
 {% if windows_drives %}
 <div class="container">
-    {% for drive in windows_drives %}
+    <div class="row">
+        {% for drive in windows_drives %}
+        <div class="col-md-2 col-sm-4 col-6 mt-2">
 
-    <span>
-        <a class="active hvr-shadow mr-2" href="/files/{{drive}}:">
-            {{drive}}
-        </a>
-    </span>
+            <div class="thumbnail hvr-shadow">
 
-    {% endfor %}
+                <a href="/files/{{drive['drive_letter']}}:">
+                    <img src='/static/windows_drive.jpg' class='img-thumbnail' style="border:0px;" />
+                    <!-- <i class="fa fa-hdd img-thumbnail"></i> -->
+                    <p style="color:black; text-align:center; text-decoration:none;">
+                        <p style="color:black;" data-toggle="tooltip" data-placement="right"
+                            title="{{drive['drive_name']}}">
+                            {{ drive['drive_name'] }} ({{ drive['drive_letter'] }}:)
+                        </p>
+                    </p>
+                </a>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endif %}
 
+{% if not windows_drives %}
 <div id="view0_container" class="container" {{ default_view_css_1 }}>
     <div class="row">
         <h5></h5>
@@ -66,7 +79,7 @@
                 href="/qr/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src="/static/phone-download.png"
                     style="width:15px;height:15px;"></a>
 
-            <div class="thumbnail hvr-shadow">
+            <div class="thumbnail hvr-shadow w-100">
 
                 <a href="/download/{{dir_i.currentDir}}/{{dir_i.f_url}}"><img src='/static/{{dir_i.image}}'
                         class='img-thumbnail' style="border:0px;" />
@@ -149,7 +162,7 @@
 
                 <img src='/static/{{dir_i.image}}' style="position:absolute; height:25px; width:25px; border:0px;" />
 
-                <p class="file-name" style="margin-left:35px; color:black; text-align:left; text-decoration:none;">
+                <p class="file-name" style="color:black; text-align:left; text-decoration:none;">
                     {{dir_i.f}}</p>
             </a>
 
@@ -168,6 +181,7 @@
     </div>
 
 </div>
+{% endif %}
 
 <!-- INLINE CODE EXIT -->
 

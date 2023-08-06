@@ -66,6 +66,10 @@ if 'win32' in sys.platform or 'win64' in sys.platform:
 
     import string
     from ctypes import windll
+    
+    import psutil
+
+    import win32api
 
     def get_drives():
         drives = []
@@ -75,7 +79,24 @@ if 'win32' in sys.platform or 'win64' in sys.platform:
                 drives.append(letter)
             bitmask >>= 1
 
-        return drives
+        # drps = psutil.disk_partitions()
+        # test_drives = [dp.device for dp in drps if dp.fstype == 'NTFS']
+        # print(test_drives)
+
+        drive_names = []
+        for drive in drives:
+            # win32api.GetVolumeInformation("C:\\")
+            print(win32api.GetVolumeInformation(drive+":\\"))
+            drive_details = win32api.GetVolumeInformation(drive+":\\")
+            if drive_details[-1] == 'NTFS':
+                drive_names.append({
+                    "drive_letter": drive,
+                    "drive_name": drive_details[0]
+                })
+
+        print(drive_names)
+
+        return drive_names
 
 if(len(favList) > 3):
     favList = favList[0:3]
@@ -315,7 +336,7 @@ def filePage(var=""):
     if osWindows:
         cList = var.split('/')
         var_path = '<a style = "color:black;"href = "/files/' + \
-            cList[0]+'">'+unquote(cList[0])+'</a>'
+            cList[0]+'">'+unquote(cList[0])+'</a>' if not windows_drives else '<a style = "color:black;"href = "/files/' + cList[0]+'">'+"This PC"+'</a>'
         for c in range(1, len(cList)):
             var_path += ' / <a style = "color:black;"href = "/files/' + \
                 '/'.join(cList[0:c+1])+'">'+unquote(cList[c])+'</a>'
@@ -493,10 +514,14 @@ def qrFile(var):
     fName = pathC[len(pathC)-1]
     qr_text = 'http://'+hostname+"//download//"+fPath
     return send_file(qrcode(qr_text, mode="raw"), mimetype="image/png")
-    return send_file(fPath, attachment_filename=fName)
+    # return send_file(fPath, attachment_filename=fName)
 
 
 if __name__ == '__main__':
     local = "127.0.0.1"
     public = '0.0.0.0'
+
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+
     app.run(host=public, debug=True, port=80)

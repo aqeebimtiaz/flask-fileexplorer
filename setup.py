@@ -91,7 +91,8 @@ if 'win32' in sys.platform or 'win64' in sys.platform:
             if drive_details[-1] == 'NTFS':
                 drive_names.append({
                     "drive_letter": drive,
-                    "drive_name": drive_details[0]
+                    "drive_name": drive_details[0],
+                    "drive_format": drive_details[-1]
                 })
 
         print(drive_names)
